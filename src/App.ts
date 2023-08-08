@@ -31,13 +31,14 @@ export default class App {
         this.app.use(morgan("dev"));    
     }
 
-    private databaseConnection(){
-        this.database.connect();    
+    private async databaseConnection(){
+        const prueba = await this.database.connect();  
+         console.log(prueba.name);
     }
 
     private routes(){
         this.app.get("/", (req,res)=>{
-            return res.send("Hello World");
+            return res.send("Hello World").status(200);
         });
     
     }
