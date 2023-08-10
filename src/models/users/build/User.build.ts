@@ -1,5 +1,9 @@
 import IUser from "../interfaces/User.interfaces";
 
+const enum Role {
+   ADMIN = "admin",
+   USER = "user",
+}
 class UserBuilder {
    private user: IUser = {} as IUser;
 
@@ -28,7 +32,7 @@ class UserBuilder {
       return this;
    }
 
-   withRole(role: string): UserBuilder {
+   withRole(role: Role): UserBuilder {
       this.user.role = role;
       return this;
    }

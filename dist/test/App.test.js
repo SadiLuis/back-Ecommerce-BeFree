@@ -18,18 +18,16 @@ const Database_1 = __importDefault(require("../Database"));
 // import passport from "passport";
 // import passportMiddlewar from "../utils/middleware/passport";
 const mongoose_1 = __importDefault(require("mongoose"));
-const http2_1 = require("http2");
 describe("Test", () => {
     let app;
     let db;
     let a;
+    let connet;
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         app = App_1.default.getInstances();
         db = Database_1.default.getInstance();
         a = app.getApp();
-    }));
-    beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
-        const connet = yield db.connect();
+        connet = yield db.connect();
     }));
     afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield mongoose_1.default.disconnect();
@@ -37,19 +35,11 @@ describe("Test", () => {
     // Resto de tus tests aquí...
     it("test_server_starts_and_listens_on_specified_port", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(app).toBeDefined();
+        expect(connet.readyState).toBe(1);
     }));
     it("test_swagger_documentation_is_properly_served", () => __awaiter(void 0, void 0, void 0, function* () {
         const agent = supertest_1.default.agent(a);
         yield agent.get("/").expect(200);
-        console.log(http2_1.connect.name);
+        expect(connet.readyState).toBe(1);
     }));
-    // Tests that the passport middleware is properly initialized
-    //    it("test_passport_middleware_is_properly_initialized", () => {
-    //       const initializeSpy = jest.spyOn(passport, "initialize");
-    //       const useSpy = jest.spyOn(passport, "use");
-    //       a.use(passport.initialize());
-    //       passport.use(passportMiddlewar);
-    //       expect(initializeSpy).toHaveBeenCalled();
-    //       expect(useSpy).toHaveBeenCalledWith(passportMiddlewar);
-    //    });
 });

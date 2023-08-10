@@ -43,7 +43,7 @@ export default class AuthControllers {
 
       //   }
 
-      const newUser = this.userBuilder
+      const newUser: UserDTO = this.userBuilder
          .withEmail(email)
          .withName(name)
          .withPassword(password)
@@ -74,7 +74,7 @@ export default class AuthControllers {
             .status(400)
             .json({ message: "Please, send all the fields" });
       }
-      console.log(email, password);
+      
       try {
          const userLogin: any = await this.userService.loginService(
             email,

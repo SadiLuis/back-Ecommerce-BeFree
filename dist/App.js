@@ -17,6 +17,7 @@ const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
 const morgan_1 = __importDefault(require("morgan"));
 const Database_1 = __importDefault(require("./Database"));
+const users_routes_1 = __importDefault(require("./routes/users.routes"));
 class App {
     constructor() {
         this.corsOptions = {
@@ -24,8 +25,15 @@ class App {
             optionsSuccessStatus: 200,
             methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         };
+        this.routes = () => {
+            this.app.get("/", (req, res) => {
+                return res.send("Hello World").status(200);
+            });
+            this.app.use('/api/v1/', this.userRoutes.getRouter());
+        };
         this.app = (0, express_1.default)();
         this.database = Database_1.default.getInstance();
+        this.userRoutes = users_routes_1.default.getInstance();
         this.middlewares();
         this.databaseConnection();
         this.routes();
@@ -39,13 +47,8 @@ class App {
     databaseConnection() {
         return __awaiter(this, void 0, void 0, function* () {
             const prueba = yield this.database.connect();
-            console.log(prueba);
+            // console.log(prueba);
             return prueba;
-        });
-    }
-    routes() {
-        this.app.get("/", (req, res) => {
-            return res.send("Hello World").status(200);
         });
     }
     getApp() {

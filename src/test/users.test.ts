@@ -14,12 +14,12 @@ describe("Test", () => {
    let db: Database;
    let a: Express;
    let connet: any;
-   let api: any;
+   let api: request.SuperTest<request.Test>;
 
    beforeAll(async () => {
       app = App.getInstances();
       a = app.getApp();
-      db = Database.getInstance();
+      db = Database.getInstance();      
       connet = await db.connect();
       api = request(a);
    });
@@ -28,7 +28,8 @@ describe("Test", () => {
    });
 
    afterAll(async () => {
-      // await mongoose.connection.dropDatabase();
+      await managerHelper.userManagerhelper.getModel().deleteMany({});
+      // await mongoose.connection.db.dropDatabase();
       await mongoose.disconnect();
    });
 

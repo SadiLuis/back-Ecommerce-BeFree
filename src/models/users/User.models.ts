@@ -87,15 +87,16 @@ class UserModel {
       };
 
       this._model = model<IUser>("User", userSchema);
-   }
+   } 
+   
 
-   get model(): Model<IUser> {
+   public get getModel(): Model<IUser> {
       return this._model;
    }
 }
 
 const userModel = new UserModel();
-export default userModel.model;
+export default userModel.getModel;
 
 
 // const userSchema = new Schema<IUser>(

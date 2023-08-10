@@ -52,7 +52,7 @@ export default class UserService {
 
          const user = await this.userManager.getByEmail(email);
          if (user === null) {
-            console.log(user);
+            
             return { status: 404, message: "The email does not valid" };
          }
          const isMatch = await user.comparePassword(password);
