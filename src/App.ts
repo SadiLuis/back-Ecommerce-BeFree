@@ -3,6 +3,7 @@ import cors,{ CorsOptions } from "cors";
 import "dotenv/config";
 import morgan from "morgan";
 import Database from "./Database";
+import UserRoutes from "./routes/users.routes";
 
 
 export default class App {
@@ -15,12 +16,17 @@ export default class App {
     }
     private database: Database;
 
+    private userRoutes: UserRoutes;
+
      private constructor(){
         this.app = express();
         this.database= Database.getInstance();
+        this.userRoutes = UserRoutes.getInstance();
+        
         this.middlewares();
         this.databaseConnection();
         this.routes()
+
         
     }
 
@@ -32,14 +38,17 @@ export default class App {
     }
 
     private async databaseConnection(){
-        const prueba = await this.database.connect();  
-         console.log(prueba.name);
+        const prueba = await this.database.connect(); 
+        // console.log(prueba);
+        return  prueba
+        
     }
 
-    private routes(){
+    private routes=()=>{
         this.app.get("/", (req,res)=>{
             return res.send("Hello World").status(200);
         });
+        this.app.use('/api/v1/', this.userRoutes.getRouter())
     
     }
     

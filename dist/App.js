@@ -39,7 +39,8 @@ class App {
     databaseConnection() {
         return __awaiter(this, void 0, void 0, function* () {
             const prueba = yield this.database.connect();
-            console.log(prueba.name);
+            console.log(prueba);
+            return prueba;
         });
     }
     routes() {

@@ -7,6 +7,7 @@ export default class Database {
 
    private constructor() {
       this.database = mongoose.connection;
+      this.connect()
    }
 
    public static getInstance(): Database {
@@ -17,28 +18,32 @@ export default class Database {
    }
 
    public async connect(): Promise<any> {
-      // await mongoose.connect(config.DB.URI);
+      await mongoose.connect(config.DB.URI);
 
-      // this.database.on(
-      //    "error",
-      //    console.error.bind(console, "connection error:")
-      // );
-      // await new Promise<void>((resolve) => {
-      //    this.database.once("open", () => {
-      //       console.log(
-      //          "MongoDB database connection established successfully"
-      //       );
-      //       resolve();
-      //    });
-      // });
+      this.database.on(
+         "error",
+         console.error.bind(console, "connection error:")
+      );
+      await new Promise<void>((resolve) => {
+         this.database.once("open", () => {
+            console.log(
+               "MongoDB database connection established successfully",
+               mongoose.connection.readyState
+            );
+            resolve();
+         });
+      });
+      return mongoose.connection;
 
-      try {
-         const connection = await mongoose.connect(config.DB.URI);
-         console.log("MongoDB database connection established successfully");
-         return connection.connection
-      } catch (error) {
-         console.error.bind(console, "connection error:");
-      }
+      
+
+      // try {
+      //    const connection = await mongoose.connect(config.DB.URI);
+      //    console.log("MongoDB database connection established successfully");
+      //    return connection.connection
+      // } catch (error) {
+      //    console.error.bind(console, "connection error:");
+      // }
    }
 
    public async disconnect(): Promise<void> {

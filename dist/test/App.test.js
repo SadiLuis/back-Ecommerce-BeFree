@@ -18,29 +18,30 @@ const Database_1 = __importDefault(require("../Database"));
 // import passport from "passport";
 // import passportMiddlewar from "../utils/middleware/passport";
 const mongoose_1 = __importDefault(require("mongoose"));
+const http2_1 = require("http2");
 describe("Test", () => {
     let app;
-    let server;
     let db;
     let a;
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         app = App_1.default.getInstances();
-        ;
         db = Database_1.default.getInstance();
         a = app.getApp();
-        server = app.getApp();
+    }));
+    beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
+        const connet = yield db.connect();
     }));
     afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield mongoose_1.default.disconnect();
     }));
     // Resto de tus tests aquí...
-    it("test_server_starts_and_listens_on_specified_port", () => {
-        console.log(server);
-        expect(server).toBeDefined();
-    });
+    it("test_server_starts_and_listens_on_specified_port", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(app).toBeDefined();
+    }));
     it("test_swagger_documentation_is_properly_served", () => __awaiter(void 0, void 0, void 0, function* () {
-        const agent = supertest_1.default.agent(app.getApp());
+        const agent = supertest_1.default.agent(a);
         yield agent.get("/").expect(200);
+        console.log(http2_1.connect.name);
     }));
     // Tests that the passport middleware is properly initialized
     //    it("test_passport_middleware_is_properly_initialized", () => {
