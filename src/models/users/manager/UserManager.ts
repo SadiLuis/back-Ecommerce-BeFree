@@ -1,10 +1,10 @@
 import config from "../../../config/config";
 import jwt from "jsonwebtoken";
-import ManagerDB from "../../../util/manager/ManagerCRUD";
+import CRUDManager from "../../../util/manager/ManagerCRUD";
 import UserModels from "../User.models";
 import IUser from "../interfaces/User.interfaces";
 
-export default class UserManager extends ManagerDB<IUser> {
+export default class UserManager extends CRUDManager<IUser> {
    private static instances: UserManager;
    // private readonly user : UserModels = new UserModels();
 

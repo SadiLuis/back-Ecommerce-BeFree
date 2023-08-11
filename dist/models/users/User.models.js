@@ -89,12 +89,12 @@ class UserModel {
         };
         this._model = (0, mongoose_1.model)("User", userSchema);
     }
-    get model() {
+    get getModel() {
         return this._model;
     }
 }
 const userModel = new UserModel();
-exports.default = userModel.model;
+exports.default = userModel.getModel;
 // const userSchema = new Schema<IUser>(
 //     {
 //        username: {

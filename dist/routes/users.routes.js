@@ -15,13 +15,13 @@ class UserRoutes {
             this.routes.post("/signIn", this.authController.signIn);
             // this.routes.put('/user/:id', this.userController.updateUser)
         };
-        this.getRouter = () => {
-            return this.routes;
-        };
         this.routes = (0, express_1.Router)();
         this.userController = Users_controllers_1.default.getInstance();
         this.authController = Auth_controllers_1.default.getInstance();
         this.configRouters();
+    }
+    getRouter() {
+        return this.routes;
     }
     static getInstance() {
         if (!UserRoutes.instance) {

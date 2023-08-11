@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class ManagerDB {
+class CRUDManager {
     constructor(model) {
         this.model = model;
     }
@@ -19,6 +19,7 @@ class ManagerDB {
                 return yield this.model.find().exec();
             }
             catch (err) {
+                console.log(err);
                 throw err;
             }
         });
@@ -75,4 +76,4 @@ class ManagerDB {
         return this.model;
     }
 }
-exports.default = ManagerDB;
+exports.default = CRUDManager;

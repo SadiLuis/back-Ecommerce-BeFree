@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserManager_1 = __importDefault(require("../models/users/manager/UserManager"));
-const users_service_1 = __importDefault(require("../services/users.service"));
+const Users_service_1 = __importDefault(require("../services/Users.service"));
 const User_build_1 = __importDefault(require("../models/users/build/User.build"));
 class AuthControllers {
     constructor() {
@@ -81,7 +81,7 @@ class AuthControllers {
             }
         });
         this.userManager = UserManager_1.default.getInstance();
-        this.userService = users_service_1.default.getInstance();
+        this.userService = Users_service_1.default.getInstance();
         this.userBuilder = new User_build_1.default();
     }
     // registerAdmin = async (req: Request, res: Response) => {

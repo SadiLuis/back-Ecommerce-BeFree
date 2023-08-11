@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import UserService from "../services/users.service";
+import UserService from "../services/Users.service";
 
 export default class UserController {
    private static instance: UserController;
@@ -12,9 +12,9 @@ export default class UserController {
    public getUsers = async (req: Request, res: Response) => {
       try {
          const users = await this.userService.getAll();
-         return res.status(200).send(users);
+         return res.status(200).json(users);
       } catch (error) {
-         return res.status(500).send(error);
+         return res.status(500).json(error);
       }
    };
 
