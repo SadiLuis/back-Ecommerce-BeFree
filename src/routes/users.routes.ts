@@ -11,7 +11,7 @@ export default class UserRoutes{
     private routes: Router
     
 
-    private constructor(){
+     constructor(){
         this.routes = Router();
         this.userController = UserController.getInstance()
         this.authController = AuthControllers.getInstance()
@@ -27,7 +27,7 @@ export default class UserRoutes{
     }
 
 
-    public getRouter=()=>{
+    public  getRouter(){
         return this.routes;
     
     }

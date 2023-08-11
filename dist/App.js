@@ -17,7 +17,9 @@ const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
 const morgan_1 = __importDefault(require("morgan"));
 const Database_1 = __importDefault(require("./Database"));
-const users_routes_1 = __importDefault(require("./routes/users.routes"));
+const Users_routes_1 = __importDefault(require("./routes/Users.routes"));
+const Category_routes_1 = __importDefault(require("./routes/Category.routes"));
+const Product_routes_1 = __importDefault(require("./routes/Product.routes"));
 class App {
     constructor() {
         this.corsOptions = {
@@ -29,25 +31,28 @@ class App {
             this.app.get("/", (req, res) => {
                 return res.send("Hello World").status(200);
             });
-            this.app.use('/api/v1/', this.userRoutes.getRouter());
+            this.app.use("/api/v1", this.userRoutes.getRouter());
+            this.app.use("/api/v1", this.categoryRoutes.getRouter());
+            this.app.use("/api", this.productRoutes.getRouter());
         };
         this.app = (0, express_1.default)();
         this.database = Database_1.default.getInstance();
-        this.userRoutes = users_routes_1.default.getInstance();
+        this.userRoutes = new Users_routes_1.default();
+        this.categoryRoutes = new Category_routes_1.default();
+        this.productRoutes = new Product_routes_1.default();
         this.middlewares();
         this.databaseConnection();
         this.routes();
     }
     middlewares() {
         this.app.use(express_1.default.json());
-        this.app.use(express_1.default.urlencoded({ extended: true }));
+        this.app.use(express_1.default.urlencoded({ extended: false }));
         this.app.use((0, cors_1.default)(this.corsOptions));
         this.app.use((0, morgan_1.default)("dev"));
     }
     databaseConnection() {
         return __awaiter(this, void 0, void 0, function* () {
             const prueba = yield this.database.connect();
-            // console.log(prueba);
             return prueba;
         });
     }

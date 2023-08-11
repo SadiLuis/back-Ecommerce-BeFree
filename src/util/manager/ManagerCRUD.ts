@@ -1,7 +1,7 @@
 import { Document, Model } from "mongoose";
 import ICRUD  from "../interfaces/CRUD.Interfaces";
 
-export default class ManagerDB<T extends Document> implements ICRUD<T> {
+export default class CRUDManager<T extends Document> implements ICRUD<T> {
    protected model: any;
 
    constructor(model: Model<T>) {
@@ -12,6 +12,8 @@ export default class ManagerDB<T extends Document> implements ICRUD<T> {
       try {
          return await this.model.find().exec();
       } catch (err) {
+         console.log(err);
+         
          throw err;
       }
    }

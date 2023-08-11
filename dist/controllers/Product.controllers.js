@@ -12,39 +12,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Users_service_1 = __importDefault(require("../services/Users.service"));
-class UserController {
+const Product_service_1 = __importDefault(require("../services/Product.service"));
+class ProductControllers {
     constructor() {
-        this.getUsers = (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.getAllProducts = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const users = yield this.userService.getAll();
-                return res.status(200).json(users);
+                const products = yield this.productServices.listProduct();
+                return res.status(200).json(products);
             }
             catch (error) {
-                return res.status(500).json(error);
+                console.log(error);
+                return res.status(400).json(error);
             }
         });
-        this.getUserById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.getProductById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { idProduct } = req.params;
             try {
-                const { idUser } = req.params;
-                const user = yield this.userService.getById(idUser);
-                if (!user) {
-                    return res.status(404).json({ message: "User not found" });
+                const product = yield this.productServices.oneProduct(idProduct);
+                console.log(idProduct);
+                if ("status" in product) {
+                    return res
+                        .status(product["status"])
+                        .json({ message: product["message"] });
                 }
-                return res.status(200).json(user);
+                return res.status(200).json(product);
             }
             catch (error) {
                 console.log(error);
                 return res.status(500).json(error);
             }
         });
-        this.userService = Users_service_1.default.getInstance();
+        this.productServices = Product_service_1.default.getInstance();
     }
     static getInstance() {
-        if (!UserController.instance) {
-            UserController.instance = new UserController();
+        if (!ProductControllers.instance) {
+            ProductControllers.instance = new ProductControllers();
         }
-        return UserController.instance;
+        return ProductControllers.instance;
     }
 }
-exports.default = UserController;
+exports.default = ProductControllers;

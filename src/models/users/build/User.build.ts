@@ -8,6 +8,7 @@ class UserBuilder {
    private user: IUser = {} as IUser;
 
    constructor() {}
+   
    withUsername(username: string): UserBuilder {
       this.user.username = username;
       return this;

@@ -1,0 +1,5 @@
+const LENGTH_DESCRIPTION=70
+
+export{
+    LENGTH_DESCRIPTION
+}

@@ -17,7 +17,7 @@ const supertest_1 = __importDefault(require("supertest"));
 const App_1 = __importDefault(require("../App"));
 const Database_1 = __importDefault(require("../Database"));
 const helper_1 = require("./helper/helper");
-describe("Test", () => {
+describe("Test users", () => {
     let app;
     let db;
     let a;
@@ -34,7 +34,8 @@ describe("Test", () => {
         yield helper_1.managerHelper.userManagerhelper.getModel().deleteMany({});
     }));
     afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield mongoose_1.default.connection.db.dropDatabase();
+        yield helper_1.managerHelper.userManagerhelper.getModel().deleteMany({});
+        mongoose_1.default.connection.destroy();
         yield mongoose_1.default.disconnect();
     }));
     describe("test user Controller", () => {

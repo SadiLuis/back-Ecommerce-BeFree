@@ -1,15 +1,13 @@
 import { Express } from "express";
-import mongoose, { isValidObjectId, ObjectId } from "mongoose";
+import mongoose from "mongoose";
 import request from "supertest";
 import App from "../App";
 import Database from "../Database";
-import UserModels from "../models/users/User.models";
-import IUser from "../models/users/interfaces/User.interfaces";
 import UserDTO from "../models/users/DTO/User.DTO";
 import { managerHelper, userHelper } from "./helper/helper";
 
 
-describe("Test", () => {
+describe("Test users", () => {
    let app: App;
    let db: Database;
    let a: Express;
@@ -29,7 +27,7 @@ describe("Test", () => {
 
    afterAll(async () => {
       await managerHelper.userManagerhelper.getModel().deleteMany({});
-      // await mongoose.connection.db.dropDatabase();
+       mongoose.connection.destroy();
       await mongoose.disconnect();
    });
 
