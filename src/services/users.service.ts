@@ -8,7 +8,7 @@ export default class UserService {
       this.userManager = UserManager.getInstance();
    }
 
-   public getAll = async () => {
+   public getAllService = async () => {
       try {
          const allUser = await this.userManager.getAll();
          return allUser;
@@ -17,7 +17,7 @@ export default class UserService {
       }
    };
 
-   public getById = async (id: string) => {
+   public getByIdService = async (id: string) => {
       try {
          const user = await this.userManager.getById(id);
          return user;
@@ -26,7 +26,7 @@ export default class UserService {
       }
    };
 
-   public create = async (user: any) => {
+   public createService = async (user: any) => {
       const { email, username, password, name, confirPassword } = user;
      
       const userExists = await this.userManager.getByEmail(email);

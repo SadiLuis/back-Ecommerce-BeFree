@@ -7,9 +7,9 @@ export default interface IProduct extends Document{
     name: string;
     description: string;
     price: number;
-    image: string[];
+    image?: string[] ;
     stock: number;
-    size: string;
+    size: string | undefined;
     statusProduct: boolean;
     category: ObjectId;
 
