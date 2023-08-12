@@ -2,7 +2,7 @@ import { Express } from "express";
 import request from "supertest";
 import App from "../App";
 import Database from "../Database";
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { managerHelper, productHelper } from "./helper/helper";
 
 describe("Test the products route", () => {
@@ -19,10 +19,12 @@ describe("Test the products route", () => {
 
    beforeEach(async () => {
       await managerHelper.productManager.getModel().deleteMany({});
+      await managerHelper.categorymanager.getModel().deleteMany({})
    });
 
    afterAll(async () => {
       await managerHelper.productManager.getModel().deleteMany({});
+      await managerHelper.categorymanager.getModel().deleteMany({})
       await mongoose.disconnect();
    });
 
@@ -34,8 +36,9 @@ describe("Test the products route", () => {
       });
 
       test("It should return an array with one product", async () => {
-         await managerHelper.productManager.create(productHelper);
-         await managerHelper.productManager.create(productHelper);
+         const testProduct = {...productHelper, category: undefined}
+         await managerHelper.productManager.create(testProduct);
+         await managerHelper.productManager.create(testProduct);
          const response = await api.get("/api/v1/products");
          expect(response.statusCode).toBe(200);
          expect(response.body.length).toBe(2);
@@ -53,8 +56,9 @@ describe("Test the products route", () => {
       });
 
       test("It should return a product", async () => {
+         const testProduct = {...productHelper, category: undefined}
          const product = await managerHelper.productManager.create(
-            productHelper
+            testProduct
          );
          const idProduct = product._id;
          const response = await api.get(`/api/v1/product/${idProduct}`);
@@ -95,6 +99,8 @@ describe("Test the products route", () => {
          const response = await api.post("/api/v1/product").send(productHelper);
          expect(response.statusCode).toBe(201);
          expect(response.body._id).toBeDefined();
+         expect(response.body.category).toBeDefined();
+         expect(isValidObjectId(response.body.category)).toBeTruthy()
       });
    });
 
@@ -110,8 +116,9 @@ describe("Test the products route", () => {
       });
 
       test("It should return a product", async () => {
+         const testProduct = {...productHelper, category: undefined}
          const product = await managerHelper.productManager.create(
-            productHelper
+            testProduct
          );
          const idProduct = product._id;
          const response = await api
@@ -132,8 +139,9 @@ describe("Test the products route", () => {
       });
 
       test("It should return a product", async () => {
+         const testProduct = {...productHelper, category: undefined}
          const product = await managerHelper.productManager.create(
-            productHelper
+            testProduct
          );
         
          const idProduct = product._id;

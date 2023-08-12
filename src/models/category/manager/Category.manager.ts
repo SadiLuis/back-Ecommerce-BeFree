@@ -10,6 +10,14 @@ export default class CategoryManager extends CRUDManager<ICategory> {
         super(CategoryModels);
     }
 
+    public getByName(name: string) {
+        try {            
+            return this.model.findOne({name: name});
+        } catch (error) {
+            throw error;
+        }
+    }
+
     public static getInstance(): CategoryManager {
         if (!CategoryManager.instance) {
             CategoryManager.instance = new CategoryManager();

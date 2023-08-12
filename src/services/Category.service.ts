@@ -11,23 +11,23 @@ export default class CategoryService {
         this.categoryManager = CategoryManager.getInstance();
     }
 
-    public async create(category: ICategory): Promise<ICategory> {
+    public async createService(category: ICategory): Promise<ICategory> {
         return await this.categoryManager.create(category);
     }
 
-    public async getAll(): Promise<ICategory[]> {
+    public async getAllService(): Promise<ICategory[]> {
         return await this.categoryManager.getAll();
     }
 
-    public async getById(id: string): Promise<ICategory> {
+    public async getByIdService(id: string): Promise<ICategory> {
         return await this.categoryManager.getById(id);
     }
 
-    public async update(id: string, category: ICategory): Promise<ICategory> {
+    public async updateService(id: string, category: ICategory): Promise<ICategory> {
         return await this.categoryManager.update(id, category);
     }
 
-    public async delete(id: string): Promise<ICategory | null> {
+    public async deleteService(id: string): Promise<ICategory | null> {
         return await this.categoryManager.delete(id);
     }
 

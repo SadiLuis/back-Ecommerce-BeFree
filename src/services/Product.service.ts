@@ -3,13 +3,18 @@ import IProduct from "../models/product/interfaces/Porduct.interfaces";
 import ProductDTO from "../models/product/DTO/Product.DTO";
 import { messageError } from "../util/errors/messageError";
 import StatusError from "../util/interfaces/StatusError.interfaces";
+import CategoryManager from "../models/category/manager/Category.manager";
+import ICategory from "../models/category/interfaces/Category.interfaces";
 
 export default class ProductServices {
    private static instance: ProductServices;
    private productManager: ProductManager;
+   private categoryManager: CategoryManager
+   
 
    private constructor() {
       this.productManager = ProductManager.getInstance();
+      this.categoryManager = CategoryManager.getInstance();
    }
 
    public listService = async (): Promise<IProduct[]> => {
@@ -24,10 +29,10 @@ export default class ProductServices {
 
    public byIdService = async (
       idProduct: string
-   ): Promise<IProduct | StatusError> => {
+   ): Promise<IProduct > => {
       try {
          const product: IProduct = await this.productManager.getById(idProduct);
-         if (!product) return { status: 404, message: "Product not found" };
+      
 
          return product;
       } catch (error) {
@@ -35,8 +40,16 @@ export default class ProductServices {
       }
    };
 
-   public createService = async (product: ProductDTO): Promise<IProduct> => {
+   public createService = async (product: IProduct, nameCategoy: string): Promise<IProduct> => {
       try {
+         
+         let category: ICategory = await this.categoryManager.getByName(nameCategoy)
+         if(!category){
+             category = await this.categoryManager.create({name: nameCategoy})         
+         }
+         
+         product.category = category._id
+
          const newProduct: IProduct = await this.productManager.create(product);
 
          return newProduct;
@@ -45,7 +58,7 @@ export default class ProductServices {
       }
    };
 
-   public updateService = async (idProduc: string, newProduct: ProductDTO) => {
+   public updateService = async (idProduc: string, newProduct: ProductDTO | IProduct) => {
       try {
          const updateProduct: IProduct = await this.productManager.update(
             idProduc,
@@ -61,13 +74,11 @@ export default class ProductServices {
 
    public deleteService = async (
       idProduct: string
-   ): Promise<IProduct | StatusError> => {
+   ): Promise<IProduct | null> => {
       try {
          const deleteProduct: IProduct | null =
             await this.productManager.delete(idProduct);
-         // console.log(deleteProduct);
-         if (!deleteProduct)
-            return { status: 404, message: "Product not found" };
+         
 
          return deleteProduct;
       } catch (error) {

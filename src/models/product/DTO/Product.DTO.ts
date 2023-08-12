@@ -7,6 +7,7 @@ export default interface ProductDTO{
     readonly price: number;
     readonly image?: string[];
     readonly stock: number;
-    readonly size?: string;    
+    readonly size?: string;
+    readonly category?: string;    
     
 }

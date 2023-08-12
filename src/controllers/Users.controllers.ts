@@ -11,7 +11,7 @@ export default class UserController {
 
    public getUsers = async (req: Request, res: Response) => {
       try {
-         const users = await this.userService.getAll();
+         const users = await this.userService.getAllService();
          return res.status(200).json(users);
       } catch (error) {
          return res.status(500).json(error);
@@ -22,7 +22,7 @@ export default class UserController {
       try {
          const {idUser} = req.params
 
-         const user = await this.userService.getById(idUser);
+         const user = await this.userService.getByIdService(idUser);
          if (!user) {
             return res.status(404).json({message:"User not found"});         
          }

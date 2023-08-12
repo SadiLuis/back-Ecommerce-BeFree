@@ -21,31 +21,29 @@ export default class ProducyBuild {
       return this;
    }
 
-   withImage(image: string): ProducyBuild {
-      this.Product.image.push(image);
+   withImage(image: string[]): ProducyBuild {
+      if (this.Product.image) {
+         this.Product.image=image;
+      }
       return this;
    }
 
    withCategory(category: ObjectId): ProducyBuild {
       this.Product.category = category;
-      return this;   
+      return this;
    }
 
    withDescription(description: string): ProducyBuild {
       this.Product.description = description;
       return this;
-   
    }
 
-   withSize(size: string): ProducyBuild {
+   withSize(size: string | undefined): ProducyBuild {
       this.Product.size = size;
-      return this;   
+      return this;
    }
 
    build(): IProduct {
       return this.Product;
    }
 }
-
-
-

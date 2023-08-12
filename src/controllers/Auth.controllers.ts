@@ -51,7 +51,7 @@ export default class AuthControllers {
          .build();
 
       try {
-         const user = await this.userService.create(newUser);
+         const user = await this.userService.createService(newUser);
 
          if ("status" in user) {
             return res
