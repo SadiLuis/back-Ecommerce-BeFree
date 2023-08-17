@@ -33,7 +33,7 @@ class App {
             });
             this.app.use("/api/v1", this.userRoutes.getRouter());
             this.app.use("/api/v1", this.categoryRoutes.getRouter());
-            this.app.use("/api", this.productRoutes.getRouter());
+            this.app.use("/api/v1", this.productRoutes.getRouter());
         };
         this.app = (0, express_1.default)();
         this.database = Database_1.default.getInstance();

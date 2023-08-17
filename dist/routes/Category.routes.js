@@ -13,10 +13,10 @@ class CategoryRouter {
     }
     configRoutes() {
         this.router.get("/categories", this.categoryController.getAll);
-        this.router.get("/:id", this.categoryController.getById);
-        this.router.post("/", this.categoryController.create);
-        this.router.put("/:id", this.categoryController.update);
-        this.router.delete("/:id", this.categoryController.delete);
+        this.router.get("/category/:idCategory", this.categoryController.getById);
+        this.router.post("/category", this.categoryController.create);
+        this.router.put("/category/:id", this.categoryController.update);
+        this.router.delete("/category/:id", this.categoryController.delete);
     }
     getRouter() {
         return this.router;

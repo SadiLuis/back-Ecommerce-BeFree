@@ -18,58 +18,54 @@ class CategoryController {
     constructor() {
         this.getAll = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const categories = yield this.categoryService.getAll();
+                const categories = yield this.categoryService.getAllService();
                 res.status(200).json(categories);
             }
             catch (error) {
                 return res.status(500).json({ error: (0, messageError_1.messageError)(error) });
             }
         });
-        this.categoryService = Category_service_1.default.getInstance();
-    }
-    create(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+        this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const category = yield this.categoryService.create(req.body);
+                const category = yield this.categoryService.createService(req.body);
                 res.status(201).json(category);
             }
             catch (error) {
                 return res.status(500).json({ error: (0, messageError_1.messageError)(error) });
             }
         });
-    }
-    update(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+        this.update = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const category = yield this.categoryService.update(req.params.id, req.body);
+                const category = yield this.categoryService.updateService(req.params.id, req.body);
                 return res.status(200).json(category);
             }
             catch (error) {
                 return res.status(500).json({ error: error });
             }
         });
-    }
-    delete(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+        this.delete = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const category = yield this.categoryService.delete(req.params.id);
+                const category = yield this.categoryService.deleteService(req.params.id);
                 res.status(204).json(category);
             }
             catch (error) {
                 return res.status(500).json({ error: error });
             }
         });
-    }
-    getById(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+        this.getById = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { idCategory } = req.params;
             try {
-                const category = yield this.categoryService.getById(req.params.id);
-                res.status(200).json(category);
+                const category = yield this.categoryService.getByIdService(idCategory);
+                if (!category)
+                    return res.status(404).json({ message: "Category not found" });
+                return res.status(200).json(category);
             }
             catch (error) {
+                console.log(error);
                 return res.status(500).json({ error: error });
             }
         });
+        this.categoryService = Category_service_1.default.getInstance();
     }
 }
 exports.default = CategoryController;

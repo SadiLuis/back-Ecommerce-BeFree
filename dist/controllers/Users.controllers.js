@@ -17,7 +17,7 @@ class UserController {
     constructor() {
         this.getUsers = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const users = yield this.userService.getAll();
+                const users = yield this.userService.getAllService();
                 return res.status(200).json(users);
             }
             catch (error) {
@@ -27,7 +27,7 @@ class UserController {
         this.getUserById = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { idUser } = req.params;
-                const user = yield this.userService.getById(idUser);
+                const user = yield this.userService.getByIdService(idUser);
                 if (!user) {
                     return res.status(404).json({ message: "User not found" });
                 }

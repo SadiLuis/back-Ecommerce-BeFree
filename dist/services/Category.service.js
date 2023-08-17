@@ -17,27 +17,27 @@ class CategoryService {
     constructor() {
         this.categoryManager = Category_manager_1.default.getInstance();
     }
-    create(category) {
+    createService(category) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.categoryManager.create(category);
         });
     }
-    getAll() {
+    getAllService() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.categoryManager.getAll();
         });
     }
-    getById(id) {
+    getByIdService(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.categoryManager.getById(id);
         });
     }
-    update(id, category) {
+    updateService(id, category) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.categoryManager.update(id, category);
         });
     }
-    delete(id) {
+    deleteService(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.categoryManager.delete(id);
         });

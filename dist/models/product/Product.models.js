@@ -4,7 +4,7 @@ const mongoose_1 = require("mongoose");
 class ProductSchema {
     constructor() {
         this.Schema = new mongoose_1.Schema({
-            title: {
+            name: {
                 type: String,
                 required: true,
                 trim: true,
@@ -25,7 +25,7 @@ class ProductSchema {
                 type: Number,
                 required: true,
             },
-            quantity: {
+            stock: {
                 type: Number,
                 required: true,
                 min: 1,

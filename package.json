@@ -44,6 +44,9 @@
   "name": "b-ecommce",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=16.17.1"
+  },
   "scripts": {
     "start": "tsc && node dist/index.js",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",

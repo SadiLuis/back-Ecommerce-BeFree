@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const UserManager_1 = __importDefault(require("../models/users/manager/UserManager"));
 class UserService {
     constructor() {
-        this.getAll = () => __awaiter(this, void 0, void 0, function* () {
+        this.getAllService = () => __awaiter(this, void 0, void 0, function* () {
             try {
                 const allUser = yield this.userManager.getAll();
                 return allUser;
@@ -24,7 +24,7 @@ class UserService {
                 throw error;
             }
         });
-        this.getById = (id) => __awaiter(this, void 0, void 0, function* () {
+        this.getByIdService = (id) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield this.userManager.getById(id);
                 return user;
@@ -33,7 +33,7 @@ class UserService {
                 throw error;
             }
         });
-        this.create = (user) => __awaiter(this, void 0, void 0, function* () {
+        this.createService = (user) => __awaiter(this, void 0, void 0, function* () {
             const { email, username, password, name, confirPassword } = user;
             const userExists = yield this.userManager.getByEmail(email);
             if (userExists) {

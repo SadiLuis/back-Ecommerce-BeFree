@@ -17,6 +17,9 @@ class ProductsRouter {
     configRoutes() {
         this.router.get("/products", this.productControllers.getAllProducts);
         this.router.get("/product/:idProduct", this.productControllers.getProductById);
+        this.router.post("/product", this.productControllers.createProduct);
+        this.router.put("/product/:idProduct", this.productControllers.updateProduct);
+        this.router.delete("/product/:idProduct", this.productControllers.deleteProduct);
     }
     ;
     static getInstance() {

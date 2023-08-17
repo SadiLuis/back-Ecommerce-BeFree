@@ -46,7 +46,7 @@ class AuthControllers {
                 .withUsername(username)
                 .build();
             try {
-                const user = yield this.userService.create(newUser);
+                const user = yield this.userService.createService(newUser);
                 if ("status" in user) {
                     return res
                         .status(user["status"])

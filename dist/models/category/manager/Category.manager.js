@@ -9,6 +9,14 @@ class CategoryManager extends ManagerCRUD_1.default {
     constructor() {
         super(Category_models_1.default);
     }
+    getByName(name) {
+        try {
+            return this.model.findOne({ name: name });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
     static getInstance() {
         if (!CategoryManager.instance) {
             CategoryManager.instance = new CategoryManager();
