@@ -44,7 +44,7 @@
   "name": "b-ecommce",
   "version": "1.0.0",
   "main": "index.js",
-  "engines": {
+   "engines": {
     "node": ">=16.17.1"
   },
   "scripts": {
